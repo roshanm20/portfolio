@@ -1,20 +1,70 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
 
-# Run and deploy your AI Studio app
+# Muhammed Roshan M — Portfolio
 
-This contains everything you need to run your app locally.
+This is a personal portfolio web application for Muhammed Roshan M, built with React and TypeScript. It showcases education, research, projects, skills, awards, and work experience in a modern, interactive, and visually rich format inspired by Nothing OS.
 
-View your app in AI Studio: https://ai.studio/apps/drive/1ExgyxyXwQ4bSWB5hSA3Z8A39IjM730Dk
+## Features
 
-## Run Locally
+- **Intro Animation:** Astronomy-themed canvas animation on load
+- **Responsive Navigation:** Sticky navbar with smooth scrolling and mobile support
+- **Hero Section:** Prominent intro with summary and call-to-action
+- **BentoGrid:** Visual grid for education, skills, tools, and languages
+- **Sectioned Content:**
+  - Research Experience
+  - Projects (with tech stack and links)
+  - Work Experience
+  - Workshops & Conferences
+  - Leadership & Positions
+  - Achievements (animated timeline)
+- **Modern UI:** Tailwind CSS, dark theme, and custom iconography
 
-**Prerequisites:**  Node.js
+## Tech Stack
+
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- Lucide React Icons
 
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Gemini API Requirement
+
+This project requires a Gemini API key for enabling the chat support feature.
+
+- Get your Gemini API key here: [Google AI Gemini API Documentation](https://ai.google.dev/gemini-api/docs/get-started)
+- Set your API key in a `.env.local` file as `GEMINI_API_KEY=your_key_here` before running the app.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js (v18 or newer recommended)
+
+
+### Build for Production
+
+To build the app for production:
+
+```sh
+npm run build
+```
+
+To preview the production build:
+
+```sh
+npm run preview
+```
+
+## Folder Structure
+
+- `components/` — All React UI components
+- `constants.ts` — Portfolio data (education, projects, etc.)
+- `types.ts` — TypeScript types for data
+- `App.tsx` — Main app layout
+- `index.tsx` — Entry point
+- `vite.config.ts` — Vite configuration
+- `tailwind.config.js` — Tailwind CSS config (if present)
+
+## License
+
+This project is open source and available under the MIT License.
