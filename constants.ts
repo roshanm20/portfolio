@@ -243,7 +243,18 @@ export const SKILLS: SkillCategory[] = [
   },
   {
     category: "Scientific Libraries",
-    skills: ["Pandas", "NumPy", "Matplotlib", "Astropy", "Gammapy", "Scipy", "Scikit-learn", "Tensorflow", "Keras"]
+    skills: [
+      "Pandas",
+      "NumPy",
+      "Matplotlib",
+      "Astropy",
+      "Gammapy",
+      "Scipy",
+      "Scikit-learn",
+      "Tensorflow",
+      "Keras",
+      "Pytorch"
+    ]
   },
   {
     category: "Core Physics",
