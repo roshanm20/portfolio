@@ -273,7 +273,8 @@ export const PROJECTS: Project[] = [
         year: "2025",
         description: "A specialized React-based web app for astronomical research on BAL Quasars using SDSS data. Features a custom simulation engine for Multi-Epoch Generation (MJD 52000–59000) and Physics Simulation of Power Law continuum with Gaussian/Lorentzian lines. Integrated with Gemini 2.5 Flash to act as an AI Advisor for detailed spectral analysis (Equivalent Width, Outflow Velocity) and publication potential evaluation. Includes a 'SkyViewer' utilizing SDSS SkyServer for target acquisition.",
         tech: ["React 19", "SDSS SkyServer", "Gemini 2.5", "Physics Simulation", "Recharts"],
-        link: "https://github.com/roshanm20"
+        link: "https://github.com/roshanm20/Cosmoscope",
+        demoLink: ""
     },
     {
         id: "autobal-ai",
@@ -281,7 +282,8 @@ export const PROJECTS: Project[] = [
         year: "2025",
         description: "Research-grade reduction pipeline for Broad Absorption Line Quasars (BALQSO). Implements a rigorous astrophysical pipeline including Savitzky-Golay filtering, continuum normalization (Power-law model), and automated metric extraction (EW, Centroid Velocity, Spectral Index). Features an AI Analyst chatbot (Gemini 2.5 Flash) that interprets derived metrics in real-time. Visualizes correlations like Flux vs. EW and supports FITS file ingestion or synthetic data generation.",
         tech: ["React 19", "Gemini 2.5 Flash", "Savitzky-Golay", "Tailwind", "Data Vis"],
-        link: "https://github.com/roshanm20"
+        link: "https://github.com/roshanm20/Autobal.AI",
+        demoLink: ""
     },
   {
     id: "stellar-lens",
@@ -289,7 +291,8 @@ export const PROJECTS: Project[] = [
     year: "2025",
     description: "A multimodal scientific dashboard modeling accretion dynamics of YSOs. Features a custom real-time physics engine (60fps) and an embedded AI Astrophysicist (Gemini 2.5) that provides live, context-aware interpretation of simulation data with verified citations.",
     tech: ["React 19", "Gemini 2.5", "Physics Engine", "Recharts", "Tailwind"],
-    link: "https://github.com/roshanm20"
+    link: "https://github.com/roshanm20/Stellar-lens",
+    demoLink: "https://stellar-lens.netlify.app/"
   },
   {
     id: "yso-latent",
@@ -297,7 +300,8 @@ export const PROJECTS: Project[] = [
     year: "2025",
     description: "AI-driven dashboard bridging raw astronomical time-series data and physical interpretation. Visualizes high-dimensional latent spaces and utilizes Gemini 2.5 Flash (Reasoning Engine) with RAG to classify anomalies and identify physical mechanisms from light curves.",
     tech: ["React 19", "TypeScript", "Gemini 2.5 Flash", "RAG", "Recharts"],
-    link: "https://github.com/roshanm20"
+    link: "https://github.com/roshanm20/astrobench-yso-explorer",
+    demoLink: "https://astrobench-yso-explorer.netlify.app"
   }
 ];
 
