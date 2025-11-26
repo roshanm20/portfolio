@@ -42,7 +42,7 @@ export const RESEARCH_EXPERIENCE: Experience[] = [
     period: "Jun 2024 – Aug 2024",
     type: "research",
     advisors: "Dr. Emma Tolley",
-    skills: ["Python", "PyTorch", "U-Net", "BIPP", "WSClean", "Bash"],
+    skills: ["Python", "PyTorch", "U-Net", "BIPP", "WSClean", "Bash", "TensorFlow", "Scikit-learn", "Pytorch", "Keras"],
     description: [
       "Developed U-Net architecture for deconvolution of Eigen Images from radio interferometric imaging software (BIPP).",
       "Tailored a fully automated pipeline for deconvolution of simulated LOFAR data.",
