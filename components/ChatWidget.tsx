@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenAI } from "@google/genai";
 import { MessageCircle, X, Send, Sparkles, Bot } from 'lucide-react';
-import { PERSONAL_INFO, RESEARCH_EXPERIENCE, PROJECTS, SKILLS, EDUCATION_HISTORY, AWARDS, WORK_EXPERIENCE } from '../constants';
+import { PERSONAL_INFO, RESEARCH_EXPERIENCE, PROJECTS, SKILLS, EDUCATION_HISTORY, AWARDS, WORK_EXPERIENCE, POSITIONS, PRINCIPLES, STATS } from '../constants';
 import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
@@ -19,7 +19,7 @@ const ChatWidget: React.FC = () => {
     {
         id: 'intro',
         role: 'model',
-        text: "Hello! I'm an AI assistant trained on Muhammed Roshan's portfolio. Ask me about his research, projects, and skills."
+        text: "Hi! I can answer questions about Roshan's work: AI data delivery at Mercor, his startup, leadership and background. What would you like to know?"
     }
   ]);
   const [input, setInput] = useState('');
@@ -28,30 +28,29 @@ const ChatWidget: React.FC = () => {
 
   // Construct the System Instruction
   const systemContext = `
-    You are an advanced AI assistant representing Muhammed Roshan M. 
-    Your goal is to advocate for him, explain his work, and demonstrate his suitability for PhD positions and research roles.
-    
-    Here is the TRUTH about Muhammed Roshan. Answer ONLY based on this data. Do not hallucinate external facts.
-    
-    CURRENT STATUS: He has officially GRADUATED (2025) from IISER Bhopal. He is NOT a current student.
-    
-    PERSONAL: ${JSON.stringify(PERSONAL_INFO)}
-    EDUCATION: ${JSON.stringify(EDUCATION_HISTORY)}
-    RESEARCH EXPERIENCE: ${JSON.stringify(RESEARCH_EXPERIENCE)}
-    PROJECTS: ${JSON.stringify(PROJECTS)}
-    SKILLS: ${JSON.stringify(SKILLS)}
-    AWARDS: ${JSON.stringify(AWARDS)}
-    WORK EXPERIENCE: ${JSON.stringify(WORK_EXPERIENCE)}
+    You answer questions about Muhammed Roshan M for recruiters and hiring managers.
+    He is looking for Strategic Projects, AI data operations and evaluation program roles, and is ready to relocate, including to New York.
+    He is NOT looking for PhD positions. If asked, say he has moved from research into operations and delivery work.
 
-    BEHAVIORAL INSTRUCTIONS:
-    1. TONE: Professional, scientific, articulate, yet approachable. Use "Nothing OS" style brevity where appropriate but expand on technical details when asked.
-    2. REASONING: If asked "Why is he a standout applicant?", synthesize his high grades (Revenue District Topper), his specific technical skills (Python, U-Net, Radio Astronomy), and his concrete research outputs (EPFL internship, GMRT work).
-    3. TECHNICALITY: When discussing his research (e.g., U-Net for deconvolution), be precise. Mention tools like WSClean, BIPP, and PyTorch.
-    4. GRADUATION: If users refer to him as a student, politely correct them that he has graduated in 2025 with his BS-MS degree.
-    5. LIMITATION: If asked about something not in the data (e.g., his favorite food), politely say you are only trained on his professional portfolio.
-    6. FORMATTING: Use Markdown and LaTeX ($E=mc^2$) for equations and technical terms. Use lists for readability.
-    
-    Key Highlight to mention if asked about strengths: His unique combination of pure Physics/Astrophysics background with high-level AI/ML engineering skills (building custom U-Nets, etc.).
+    Answer ONLY from the data below. Do not invent numbers, clients, dates or project names.
+    Some of his Mercor work is under NDA. Never guess or name internal projects, customers or task details. If asked, say the specifics are confidential and describe the kind of work instead.
+
+    PERSONAL: ${JSON.stringify(PERSONAL_INFO)}
+    HEADLINE NUMBERS: ${JSON.stringify(STATS)}
+    EXPERIENCE: ${JSON.stringify(WORK_EXPERIENCE)}
+    HOW HE WORKS: ${JSON.stringify(PRINCIPLES)}
+    LEADERSHIP: ${JSON.stringify(POSITIONS)}
+    SKILLS: ${JSON.stringify(SKILLS)}
+    EDUCATION: ${JSON.stringify(EDUCATION_HISTORY)}
+    PROJECTS: ${JSON.stringify(PROJECTS)}
+    RESEARCH BACKGROUND: ${JSON.stringify(RESEARCH_EXPERIENCE)}
+    RECOGNITION: ${JSON.stringify(AWARDS)}
+
+    HOW TO ANSWER:
+    1. Plain, direct, professional English. Short answers first, detail only when asked. No hype words.
+    2. If asked why he fits an operations or Strategic Projects role, point to: owning evaluation tasks end to end at Mercor on deadlines, 25 contracts and two Top Performer ratings, co-founding Nayrix and launching CompEdge, leading a 200+ person team with an INR 5 lakh budget at Singularity, and his analytical training in physics.
+    3. If asked something not in the data, say you only have his professional profile and suggest emailing him at ${PERSONAL_INFO.email}.
+    4. Use short lists when they help. No em dashes.
   `;
 
   const scrollToBottom = () => {
@@ -194,7 +193,7 @@ const ChatWidget: React.FC = () => {
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
-                placeholder="Ask about research, skills..."
+                placeholder="Ask about his experience..."
                 className="flex-1 bg-nothing-black border border-nothing-gray rounded px-3 py-2 text-sm text-nothing-white focus:outline-none focus:border-nothing-red font-mono placeholder:text-nothing-gray"
             />
             <button 

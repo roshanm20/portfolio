@@ -18,6 +18,7 @@ export interface Project {
   description: string;
   tech: string[];
   link?: string;
+  demoLink?: string;
 }
 
 export interface Award {
@@ -32,20 +33,12 @@ export interface SkillCategory {
   skills: string[];
 }
 
-export interface Workshop {
-  id: string;
-  title: string;
-  role?: string; // e.g., "Session Chair", "Remote"
-  location: string;
-  date: string;
-  details?: string[];
-}
-
 export interface Position {
   id: string;
   role: string;
   organization: string;
   period: string;
+  detail?: string;
 }
 
 export interface Education {
@@ -53,4 +46,15 @@ export interface Education {
   degree: string;
   period: string;
   details: string;
+}
+
+export interface Principle {
+  id: string;
+  title: string;
+  text: string;
+}
+
+export interface Stat {
+  value: string;
+  label: string;
 }

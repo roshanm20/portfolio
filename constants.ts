@@ -1,296 +1,276 @@
-import { Experience, Project, Award, SkillCategory, Workshop, Position, Education } from './types';
+import { Experience, Project, Award, SkillCategory, Position, Education, Principle, Stat } from './types';
 
 export const PERSONAL_INFO = {
   name: "Muhammed Roshan M",
-  tagline: "BS-MS Physics Graduate | Astrophysics & AI Researcher",
-  location: "Bhopal, India",
+  tagline: "AI Data Operations | Evaluation & Delivery | Physics-trained",
+  location: "Bhopal, India. Ready to relocate.",
   email: "muhammedroshanmangat@gmail.com",
-  alt_email: "roshanm20@iiserb.ac.in",
-  linkedin: "https://www.linkedin.com/in/mroshan1", 
+  linkedin: "https://www.linkedin.com/in/mroshan1",
   github: "https://github.com/roshanm20",
-  phone: "+91 8606 829038",
-  summary: "Astrophysics researcher specializing in radio interferometry and spectral analysis, with deep expertise in machine learning and deep learning architectures. Pioneering the application of AI in astronomy by developing novel U-Net pipelines for image deconvolution and sophisticated simulation engines. Dedicated to advancing scientific discovery through the convergence of rigorous physics and modern artificial intelligence."
+  cv: "/Muhammed_Roshan_M_CV.pdf",
+  summary: "I work on the part of AI data projects that decides whether they ship: scoping, quality bars, reviewer loops and deadlines. For the last year I have owned frontier-model evaluation tasks at Mercor from first draft to approved delivery, after more than two years of AI training work on other platforms. I trained as a physicist at IISER Bhopal and EPFL, and I co-founded Nayrix, a small software company."
 };
+
+export const STATS: Stat[] = [
+  { value: "25", label: "Mercor contracts across 8+ domains" },
+  { value: "2x", label: "Top Performer rating" },
+  { value: "2.5 yrs", label: "AI training data work" },
+  { value: "200+", label: "person team led at Singularity" }
+];
 
 export const EDUCATION_HISTORY: Education[] = [
   {
-    institution: "Indian Institute of Science Education and Research Bhopal",
+    institution: "IISER Bhopal",
     degree: "Integrated BS-MS in Physics",
-    period: "Dec 2020 – Jun 2025",
-    details: "Graduated. Major in Physics. Minor in Earth & Environmental Science. CGPA: 8.1/10."
+    period: "2020 – 2025",
+    details: "Minor in Earth & Environmental Science. CGPA 8.1/10, top 10%. DST INSPIRE Fellow."
+  }
+];
+
+export const WORK_EXPERIENCE: Experience[] = [
+  {
+    id: "mercor",
+    role: "Engineering Writer, premium evaluation program",
+    organization: "Mercor",
+    location: "Remote",
+    period: "Aug 2025 – Present",
+    type: "work",
+    link: "https://www.mercor.com/",
+    description: [
+      "Worked 25 contracts across physics, maths, biology, electrical engineering, quant, research, Hindi RLHF and Malayalam safety annotation. Earned two Top Performer ratings and moved from hourly review work into a premium per-task writing role.",
+      "Own evaluation tasks end to end: scope the task, build the source material, write the prompt, answer key and rubric, run the models, and take the task through reviewer and QA gates to approved delivery on fixed deadlines.",
+      "Took over a task another writer had abandoned halfway, kept the approved work instead of restarting, and shipped it. Turned a reviewer's regression finding into a rubric fix that moved a stalled task into the next stage.",
+      "Ran failure analysis across model runs. When two reworks showed computation was not the weak point, found the one failure that kept repeating (structure and formatting) and refocused the task on it.",
+      "Wrote the standards I now work to: folder and file conventions, a source registration template, a difficulty design playbook and a pre-run checklist, because one stale input file can void a whole set of model runs."
+    ]
   },
   {
-    institution: "EMEA HSS, Kondotty",
-    degree: "Class XII (Board of Higher Secondary Examination, Kerala)",
-    period: "March 2020",
-    details: "Score: 100% (Revenue District Topper)"
+    id: "nayrix",
+    role: "Co-founder",
+    organization: "Nayrix Software Solutions",
+    location: "Kerala, India",
+    period: "2025 – Present",
+    type: "work",
+    link: "https://www.nayrix.com/",
+    description: [
+      "Built and launched CompEdge, an AI competitive intelligence platform, from scope to live product on React, Supabase, Vercel and a Python report engine.",
+      "Ran go-to-market end to end: LinkedIn content, Reddit outreach, n8n email automation and a warm-lead pipeline. A senior Big Four audit professional cleared a CompEdge report for client delivery.",
+      "Client analytics for IMTC Qute Solutions Pvt. Ltd.: a home-loan dashboard with competitor benchmarking and an EMI calculator."
+    ]
   },
   {
-    institution: "Markazul Uloom English School, Kondotty",
-    degree: "Class X (CBSE)",
-    period: "March 2018",
-    details: "Score: 94.6%"
+    id: "platforms",
+    role: "AI Trainer and Task Author, Physics and STEM",
+    organization: "Outlier, Soul AI, AfterQuery",
+    location: "Remote",
+    period: "Mar 2024 – Present",
+    type: "work",
+    description: [
+      "Reviewed and rewrote model answers and reasoning in physics against detailed rubrics, and wrote gold answers used for fine-tuning. Worked to each platform's own guidelines, tools and quality bar.",
+      "Author containerised science benchmark tasks with reference solutions and sealed verifiers, checked through automated difficulty, anti-cheat and quality review before acceptance."
+    ]
+  },
+  {
+    id: "crafted-learning",
+    role: "Co-founder (past venture)",
+    organization: "Crafted Learning Hub",
+    location: "Kerala, India",
+    period: "Past",
+    type: "work",
+    link: "https://www.craftedlearn.com/",
+    description: [
+      "Set up an EdTech venture for personalised learning. Tested the model, judged it would not scale the way we needed, and stepped away rather than keep spending on it."
+    ]
+  },
+  {
+    id: "teaching",
+    role: "Physics Faculty and Tutor",
+    organization: "JeeConnect, Superprof, Quidei",
+    location: "Remote",
+    period: "2019 – Present",
+    type: "work",
+    description: [
+      "Taught Class 11 and 12 physics for JEE and CBSE, in live batches and one to one. Explaining hard ideas in plain words is the same skill I use when writing guidelines for contributors."
+    ]
+  }
+];
+
+export const PRINCIPLES: Principle[] = [
+  {
+    id: "own",
+    title: "Own it end to end",
+    text: "Scope, build, review, deliver. If it is late or wrong, it is mine to fix, not someone else's ticket."
+  },
+  {
+    id: "process",
+    title: "Fix the process, not the symptom",
+    text: "If the same problem shows up twice, I write the checklist, template or rule so it does not show up a third time."
+  },
+  {
+    id: "quality",
+    title: "Quality bars you can check",
+    text: "Clear, atomic criteria that two reviewers would grade the same way. Vague guidelines are where rework comes from."
+  },
+  {
+    id: "data",
+    title: "Find the real failure",
+    text: "Look across runs and people before changing anything. One repeating cause is worth more than ten one-off fixes."
+  }
+];
+
+export const POSITIONS: Position[] = [
+  {
+    id: "singularity-conv",
+    role: "Convenor",
+    organization: "Singularity, IISER Bhopal",
+    period: "2022 – 2024",
+    detail: "Largest science festival in central India. Led a 200+ member team and an INR 5 lakh budget from planning to event day."
+  },
+  {
+    id: "sec",
+    role: "Science Council Secretary",
+    organization: "IISER Bhopal",
+    period: "2022 – 2023",
+    detail: "Coordinated the student science council, its clubs and its events for the year."
+  },
+  {
+    id: "placement",
+    role: "Placement Coordinator",
+    organization: "Physics Department, IISER Bhopal",
+    period: "2024",
+    detail: "Point of contact between the department and visiting recruiters."
+  },
+  {
+    id: "sciastra",
+    role: "Campus Ambassador",
+    organization: "SciAstra",
+    period: "2023 – 2024",
+    detail: "Represented an EdTech company on campus."
+  }
+];
+
+export const SKILLS: SkillCategory[] = [
+  {
+    category: "Operations",
+    skills: ["Delivery ownership", "QA and rubric design", "Failure analysis", "Contributor guidelines", "Process documentation", "Deadline planning"]
+  },
+  {
+    category: "Data & Tools",
+    skills: ["Python", "Pandas", "NumPy", "SQL", "Excel modelling", "Git", "Docker", "LaTeX"]
+  },
+  {
+    category: "Build",
+    skills: ["React", "TypeScript", "Supabase", "Vercel", "n8n"]
+  },
+  {
+    category: "Domains Worked",
+    skills: ["Physics", "Mathematics", "Biology", "Electrical Engineering", "Quant", "Astronomy"]
+  },
+  {
+    category: "Languages",
+    skills: ["English", "Malayalam", "Hindi"]
   }
 ];
 
 export const RESEARCH_EXPERIENCE: Experience[] = [
   {
     id: "epfl-2024",
-    role: "Developing Novel Deconvolution Techniques",
-    organization: "EPFL, Switzerland",
+    role: "Deep learning for radio image reconstruction",
+    organization: "EPFL, Switzerland (ThinkSwiss Fellow)",
     location: "Lausanne, CH",
     period: "Jun 2024 – Aug 2024",
     type: "research",
     advisors: "Dr. Emma Tolley",
-    skills: ["Python", "PyTorch", "U-Net", "BIPP", "WSClean", "Bash", "TensorFlow", "Scikit-learn", "Pytorch", "Keras"],
+    skills: ["Python", "PyTorch", "U-Net", "WSClean"],
     description: [
-      "Developed U-Net architecture for deconvolution of Eigen Images from radio interferometric imaging software (BIPP).",
-      "Tailored a fully automated pipeline for deconvolution of simulated LOFAR data.",
-      "Benchmarked model performance, finding it superior to conventional WSClean outputs."
+      "Built a U-Net pipeline to deconvolve simulated LOFAR radio images, end to end and fully automated.",
+      "Benchmarked it against the standard tool (WSClean) and it came out ahead on morphological and statistical metrics.",
+      "Chaired a session at the MWA project meeting and attended the SKA-CH project meeting."
     ]
   },
   {
     id: "iia-2025",
-    role: "Finding Multi Epoch Quasars",
+    role: "Multi-epoch quasar catalogue",
     organization: "Indian Institute of Astrophysics",
     location: "Bengaluru, IN",
-    period: "May 2024 – Apr 2025",
+    period: "2024 – 2025",
     type: "research",
     advisors: "Dr. Vivek M",
-    skills: ["Python", "SDSS Dr16Q", "SQL", "TOPCAT", "Astropy", "Pandas"],
+    skills: ["Python", "SQL", "Astropy", "Pandas"],
     description: [
-      "Prepared a dedicated catalogue for Multi-BAL Quasars from SDSS DR16Q.",
-      "Applied critical thinking to extract meaningful findings on absorption line variabilities.",
-      "Selected peculiar sources to study characteristics and reasons for variability."
+      "Built a catalogue of multi-epoch broad absorption line quasars from SDSS DR16Q for my master's thesis.",
+      "Automated the measurement and plotting so the same analysis ran the same way across every source."
     ]
   },
   {
-    id: "iiserb-pulsar",
-    role: "Filtering Out Noise from Simulated Pulsar Signal",
-    organization: "IISER Bhopal",
-    location: "Bhopal, IN",
-    period: "Mar 2023 – Apr 2023",
-    type: "research",
-    advisors: "Dr. Mayuresh Surnis, Dr. Nirmal Ganguly",
-    skills: ["Python", "Fourier Transform", "NumPy", "SciPy", "Signal Processing"],
-    description: [
-      "Employed advanced Fourier Transform and window averaging algorithms to amplify intrinsic periodicity.",
-      "Enhanced signal-to-noise discrimination to facilitate precise frequency analysis.",
-      "Detected faint astronomical phenomena amidst noisy backgrounds using sophisticated processing techniques."
-    ]
-  },
-  {
-    id: "iiserb-lca",
-    role: "Comparative Life Cycle Analysis",
-    organization: "IISER Bhopal",
-    location: "Bhopal, IN",
-    period: "Jan 2023 – Apr 2023",
-    type: "research",
-    advisors: "Prof. Ramya Sunder Raman",
-    skills: ["Python", "Plotly", "Matplotlib", "Data Visualization", "Sankey Diagrams"],
-    description: [
-      "Led Python development for visualizing LCA data (radar charts, Sankey diagrams, tree maps).",
-      "Conducted comparative analysis of online vs. pen & paper exams.",
-      "Calculated overall environmental impacts associated with paper and tablet production."
-    ]
-  },
-  {
-    id: "gmrt-interferometry",
-    role: "Multi Element Interferometry Simulation",
-    organization: "GMRT Pune",
+    id: "gmrt",
+    role: "Interferometry and beamformer data",
+    organization: "GMRT, NCRA-TIFR",
     location: "Pune, IN",
-    period: "Dec 2022 – Apr 2023",
+    period: "2022 – 2023",
     type: "research",
     advisors: "Ms. Mekhala Muley, Dr. Jayanta Roy",
-    skills: ["Python", "NumPy", "Electromagnetism", "Simulation"],
+    skills: ["Python", "C", "NumPy", "Linux"],
     description: [
-      "Developed robust power pattern analysis algorithm using Python/NumPy for electric field evaluation.",
-      "Leveraged complex number operations and element-wise exponentiation to characterize power distribution.",
-      "Demonstrated profound understanding of electromagnetic wave phenomena."
+      "Converted FPGA beamformer output into the format the observatory's pulsar tools read, with minimal precision loss.",
+      "Simulated multi-element interferometer power patterns."
     ]
   },
   {
-    id: "gmrt-fpga",
-    role: "Converting Output from Beamformer in FPGA",
-    organization: "GMRT Pune",
-    location: "Pune, IN",
-    period: "Jun 2022 – Aug 2022",
-    type: "research",
-    advisors: "Ms. Mekhala Muley, Dr. Jayanta Roy",
-    skills: ["C", "Python", "FPGA", "Digital Signal Processing", "Linux"],
-    description: [
-      "Spearheaded conversion of output data from FPGA accelerator card into GP Tool compatible format.",
-      "Developed Python-based solution to convert float data to ShortInt with minimal precision loss.",
-      "Enabled seamless analysis of radio astronomical observations in GMRT Pulsar Analysis Tool."
-    ]
-  }
-];
-
-export const WORK_EXPERIENCE: Experience[] = [
-  {
-    id: "nayrix",
-    role: "Co-Founder",
-    organization: "Nayrix",
-    location: "Kerala, IN",
-    period: "Present",
-    type: "work",
-    link: "https://www.nayrix.com/",
-    description: [
-      "Co-founded a software solutions company delivering bespoke digital products.",
-      "Overseeing technical strategy, client delivery, and full-stack development."
-    ]
-  },
-  {
-    id: "crafted-learning",
-    role: "Co-Founder",
-    organization: "Crafted Learning Hub",
-    location: "Kerala, IN",
-    period: "Present",
-    type: "work",
-    link: "https://www.craftedlearn.com/",
-    description: [
-      "Leading an EdTech initiative focused on personalized learning pathways.",
-      "Developing educational content strategies and technical infrastructure for online delivery."
-    ]
-  },
-  {
-    id: "jee-connect",
-    role: "Physics Faculty",
-    organization: "JeeConnect",
-    location: "Mumbai",
-    period: "Jan 2023 – Mar 2025",
-    type: "work",
-    description: [
-      "Delivered advanced physics instruction for competitive exams.",
-      "Developed curriculum aligned with national standards."
-    ]
-  },
-  {
-    id: "quidei",
-    role: "Individual Tutor - Physics",
-    organization: "Quidei",
-    location: "Remote",
+    id: "iiserb",
+    role: "Signal processing and data visualisation",
+    organization: "IISER Bhopal",
+    location: "Bhopal, IN",
     period: "2023",
-    type: "work",
+    type: "research",
+    advisors: "Dr. Nirmal Ganguly, Prof. Ramya Sunder Raman",
+    skills: ["Python", "SciPy", "Plotly"],
     description: [
-      "Provided one-on-one tutoring for XI and XII NCERT physics curriculum."
+      "Pulled faint periodic signals out of simulated noisy pulsar data using Fourier methods.",
+      "Led the Python work for a life cycle analysis comparing online and pen-and-paper exams."
     ]
-  },
-  {
-    id: "superprof",
-    role: "Physics Tutor",
-    organization: "Superprof",
-    location: "Remote",
-    period: "2019 – Present",
-    type: "work",
-    description: [
-      "Tutoring students from grades X to XII following NCERT curriculum.",
-      "Personalized mentorship and problem-solving strategies."
-    ]
-  }
-];
-
-export const WORKSHOPS: Workshop[] = [
-  {
-    id: "mwa-2024",
-    title: "MWA Project Meeting",
-    role: "Session Chair",
-    location: "EPFL, Switzerland",
-    date: "August 2024"
-  },
-  {
-    id: "ska-ch-2024",
-    title: "SKA-CH Project Meeting",
-    location: "Zurich University of Applied Sciences",
-    date: "June 2024"
-  },
-  {
-    id: "solar-2024",
-    title: "Computational Solar Physics Workshop",
-    location: "IIT Bhubaneswar",
-    date: "January 2024",
-    details: ["Hands-on with SunPy and PFSS.", "Predicted solar cycle maxima using Helioviewer."]
-  },
-  {
-    id: "meerkat-2021",
-    title: "MEERKAT Radio Astronomy Workshop",
-    role: "Remote",
-    location: "Swinburne University, Australia",
-    date: "June 2021",
-    details: ["Radio data analysis from MEERKAT.", "Advanced Linux scripting and R programming."]
-  }
-];
-
-export const POSITIONS: Position[] = [
-  { id: "placement", role: "Placement Coordinator", organization: "Physics Dept, IISERB", period: "2024" },
-  { id: "sciastra", role: "Campus Ambassador", organization: "SciAstra", period: "2023-24" },
-  { id: "sec", role: "Science Council Secretary", organization: "IISERB", period: "2022-23" },
-  { id: "singularity-conv", role: "Convenor", organization: "Singularity (Science Fest)", period: "2022" },
-  { id: "council-core", role: "Science Council Core Committee", organization: "IISERB", period: "2020-21" },
-  { id: "astro-club", role: "Core Committee Member", organization: "Astronomy Club", period: "2021-22" },
-  { id: "physics-club", role: "Core Committee Member", organization: "Physics Club", period: "2021-22" },
-  { id: "peer", role: "Peer Counsellor", organization: "IISERB", period: "2021-22" },
-];
-
-export const SKILLS: SkillCategory[] = [
-  {
-    category: "Languages",
-    skills: ["Python", "Wolfram", "LaTeX", "C", "MATLAB", "TypeScript", "SQL"]
-  },
-  {
-    category: "Software & Tools",
-    skills: ["Mathematica", "CASA", "TOPCAT", "Vite", "React 19", "Tailwind", "Linux"]
-  },
-  {
-    category: "Scientific Libraries",
-    skills: [
-      "Pandas",
-      "NumPy",
-      "Matplotlib",
-      "Astropy",
-      "Gammapy",
-      "Scipy",
-      "Scikit-learn",
-      "Tensorflow",
-      "Keras",
-      "Pytorch"
-    ]
-  },
-  {
-    category: "Core Physics",
-    skills: ["Quantum Mechanics", "Electromagnetism", "Astrophysics", "Statistical Mechanics", "Particle Physics", "Non-Linear Dynamics"]
-  },
-  {
-    category: "Domain Specific",
-    skills: ["Spectral Analysis", "Radio Image Deconvolution", "Machine Learning", "Deep Learning in Astronomy", "Model Benchmarking", "CSV/Pipeline Dev", "Interferometry"]
   }
 ];
 
 export const PROJECTS: Project[] = [
-    {
-        id: "cosmoscope",
-        title: "CosmoScope SDSS Research",
-        year: "2025",
-        description: "A specialized React-based web app for astronomical research on BAL Quasars using SDSS data. Features a custom simulation engine for Multi-Epoch Generation (MJD 52000–59000) and Physics Simulation of Power Law continuum with Gaussian/Lorentzian lines. Integrated with Gemini 2.5 Flash to act as an AI Advisor for detailed spectral analysis (Equivalent Width, Outflow Velocity) and publication potential evaluation. Includes a 'SkyViewer' utilizing SDSS SkyServer for target acquisition.",
-        tech: ["React 19", "SDSS SkyServer", "Gemini 2.5", "Physics Simulation", "Recharts"],
-        link: "https://github.com/roshanm20/Cosmoscope",
-        demoLink: ""
-    },
-    {
-        id: "autobal-ai",
-        title: "Autobal.AI Spectroscopy Suite",
-        year: "2025",
-        description: "Research-grade reduction pipeline for Broad Absorption Line Quasars (BALQSO). Implements a rigorous astrophysical pipeline including Savitzky-Golay filtering, continuum normalization (Power-law model), and automated metric extraction (EW, Centroid Velocity, Spectral Index). Features an AI Analyst chatbot (Gemini 2.5 Flash) that interprets derived metrics in real-time. Visualizes correlations like Flux vs. EW and supports FITS file ingestion or synthetic data generation.",
-        tech: ["React 19", "Gemini 2.5 Flash", "Savitzky-Golay", "Tailwind", "Data Vis"],
-        link: "https://github.com/roshanm20/Autobal.AI",
-        demoLink: ""
-    },
+  {
+    id: "compedge",
+    title: "CompEdge",
+    year: "2025",
+    description: "AI competitive intelligence platform, built and launched under Nayrix. Produces client-ready competitor reports; one passed review by a senior Big Four audit professional for client delivery.",
+    tech: ["React", "Supabase", "Vercel", "Python", "LaTeX"],
+    demoLink: "https://compedge.nayrix.com"
+  },
+  {
+    id: "decision-lab",
+    title: "Decision Lab",
+    year: "2026",
+    description: "One worked piece a day on business intelligence, AI product decisions and how companies make money. A running habit of breaking down real decisions with numbers.",
+    tech: ["Python", "Business analysis"],
+    link: "https://github.com/roshanm20/decision-lab"
+  },
+  {
+    id: "autobal-ai",
+    title: "Autobal.AI",
+    year: "2025",
+    description: "Pipeline for broad absorption line quasar spectra: smoothing, continuum fitting and automatic extraction of equivalent width and outflow velocity, with an AI analyst that explains the numbers.",
+    tech: ["React", "TypeScript", "Data pipeline"],
+    link: "https://github.com/roshanm20/Autobal.AI"
+  },
+  {
+    id: "cosmoscope",
+    title: "CosmoScope",
+    year: "2025",
+    description: "Research sandbox that connects SDSS archive data to physical models, with multi-epoch simulation and variability diagnostics.",
+    tech: ["React", "SDSS", "Recharts"],
+    link: "https://github.com/roshanm20/Cosmoscope"
+  },
   {
     id: "stellar-lens",
     title: "STELLAR-LENS",
     year: "2025",
-    description: "A multimodal scientific dashboard modeling accretion dynamics of YSOs. Features a custom real-time physics engine (60fps) and an embedded AI Astrophysicist (Gemini 2.5) that provides live, context-aware interpretation of simulation data with verified citations.",
-    tech: ["React 19", "Gemini 2.5", "Physics Engine", "Recharts", "Tailwind"],
+    description: "Dashboard that simulates accretion variability in young stars in real time and explains what the simulation is showing.",
+    tech: ["React", "Physics engine", "Recharts"],
     link: "https://github.com/roshanm20/Stellar-lens",
     demoLink: "https://stellar-lens.netlify.app/"
   },
@@ -298,22 +278,18 @@ export const PROJECTS: Project[] = [
     id: "yso-latent",
     title: "YSO Latent Explorer",
     year: "2025",
-    description: "AI-driven dashboard bridging raw astronomical time-series data and physical interpretation. Visualizes high-dimensional latent spaces and utilizes Gemini 2.5 Flash (Reasoning Engine) with RAG to classify anomalies and identify physical mechanisms from light curves.",
-    tech: ["React 19", "TypeScript", "Gemini 2.5 Flash", "RAG", "Recharts"],
+    description: "Turns light-curve time series into a latent space you can explore, to spot unusual sources and suggest what is causing them.",
+    tech: ["React", "TypeScript", "Recharts"],
     link: "https://github.com/roshanm20/astrobench-yso-explorer",
     demoLink: "https://astrobench-yso-explorer.netlify.app"
   }
 ];
 
 export const AWARDS: Award[] = [
+  { id: "mercor-tp", title: "Top Performer rating, twice", organization: "Mercor", year: "2025 – 26" },
   { id: "thinkswiss", title: "ThinkSwiss Research Scholarship: Asia Pacific", organization: "SERI / Swissnex", year: "2024" },
-  { id: "internship", title: "Selected for Summer Internship", organization: "Instituto de astrofísica (Porto, Portugal)", year: "2023" },
-  { id: "nius-18.2", title: "Selected for NIUS (Physics) 18.2", organization: "HBCSE, TIFR-Mumbai", year: "2023" },
-  { id: "astro-group", title: "Selected for Astronomy Research Group", organization: "IISER Bhopal", year: "2023" },
-  { id: "vijyoshi", title: "VIJYOSHI National Science Camp", organization: "IISC Bengaluru", year: "2020" },
-  { id: "nius-18.1", title: "Selected for NIUS (Physics) 18.1", organization: "HBCSE, TIFR-Mumbai", year: "2020" },
-  { id: "dst", title: "DST Inspire Fellowship", organization: "DST, Govt of India", year: "2020" },
-  { id: "topper", title: "Revenue District Topper (Class XII)", organization: "Kerala Board", year: "2020" },
-  { id: "iisf", title: "Indian International Science Festival", organization: "NBRI, Lucknow", year: "2018" },
-  { id: "kerala-congress", title: "Kerala Science Congress", organization: "Calicut", year: "2017" }
+  { id: "porto", title: "Selected for summer research internship", organization: "Instituto de Astrofísica e Ciências do Espaço, Porto", year: "2023" },
+  { id: "nius", title: "Selected for NIUS Physics (18.1 and 18.2)", organization: "HBCSE, TIFR Mumbai", year: "2020 – 23" },
+  { id: "dst", title: "DST INSPIRE Fellowship", organization: "DST, Govt of India", year: "2020 – 25" },
+  { id: "vijyoshi", title: "VIJYOSHI National Science Camp", organization: "IISc Bengaluru", year: "2020" }
 ];

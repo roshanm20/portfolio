@@ -1,11 +1,11 @@
 import React from 'react';
-import { ArrowDown } from 'lucide-react';
-import { PERSONAL_INFO } from '../constants';
+import { ArrowDown, Download, Mail } from 'lucide-react';
+import { PERSONAL_INFO, STATS } from '../constants';
 
 const Hero: React.FC = () => {
 
   const handleScrollDown = () => {
-    const nextSection = document.getElementById('skills');
+    const nextSection = document.getElementById('experience');
     if (nextSection) {
       const headerOffset = 100;
       const elementPosition = nextSection.getBoundingClientRect().top;
@@ -56,14 +56,14 @@ const Hero: React.FC = () => {
 
           <p className="font-mono text-nothing-red mb-2 tracking-widest text-xs md:text-sm flex items-center gap-2">
             <span className="w-2 h-2 bg-nothing-red rounded-full animate-pulse"></span>
-            SYSTEM ONLINE
+            AI DATA OPERATIONS
           </p>
           <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold font-sans tracking-tighter text-nothing-white leading-[1.1] md:leading-none mb-3">
             MUHAMMED<br />
             <span className="text-nothing-light glitch-hover cursor-default">ROSHAN M</span>
           </h1>
-          <p className="font-mono text-nothing-gray text-xs md:text-sm mt-2 tracking-widest uppercase">
-            BS-MS Physics Graduate • Minor in Earth & Env. Science
+          <p className="font-mono text-nothing-light/70 text-xs md:text-sm mt-2 tracking-widest uppercase">
+            {PERSONAL_INFO.tagline}
           </p>
         </div>
 
@@ -71,7 +71,7 @@ const Hero: React.FC = () => {
           <div className="md:col-span-7">
             <div className="border-t border-nothing-gray pt-6 relative">
                <div className="absolute -top-[3px] right-0 w-10 h-[1px] bg-nothing-red"></div>
-               <p className="font-mono text-sm md:text-base text-nothing-light leading-relaxed max-w-2xl text-justify md:text-left">
+               <p className="font-mono text-sm md:text-base text-nothing-light leading-relaxed max-w-2xl text-left">
                 {PERSONAL_INFO.summary}
               </p>
             </div>
@@ -81,14 +81,40 @@ const Hero: React.FC = () => {
              <div className="flex flex-col gap-4 items-start">
                 <div className="inline-flex items-center gap-2 border border-nothing-gray px-4 py-2 rounded-full bg-nothing-black/50 backdrop-blur-sm hover:border-nothing-red transition-colors cursor-default">
                     <div className="w-2 h-2 bg-nothing-red rounded-full animate-ping"></div>
-                    <span className="font-mono text-[10px] md:text-xs text-nothing-light">OPEN FOR PHD POSITIONS</span>
+                    <span className="font-mono text-[10px] md:text-xs text-nothing-light">OPEN TO STRATEGIC PROJECTS & AI DATA OPS ROLES</span>
+                </div>
+                <p className="font-mono text-[10px] md:text-xs text-nothing-light pl-1">{PERSONAL_INFO.location}</p>
+                <div className="flex flex-wrap gap-3 mt-2">
+                  <a
+                    href={PERSONAL_INFO.cv}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex items-center gap-2 bg-nothing-white text-nothing-black px-5 py-2.5 font-mono text-xs font-bold hover:bg-nothing-red hover:text-white transition-colors"
+                  >
+                    <Download size={14} /> DOWNLOAD CV
+                  </a>
+                  <a
+                    href={`mailto:${PERSONAL_INFO.email}`}
+                    className="flex items-center gap-2 border border-nothing-gray text-nothing-white px-5 py-2.5 font-mono text-xs font-bold hover:border-nothing-white transition-colors"
+                  >
+                    <Mail size={14} /> EMAIL
+                  </a>
                 </div>
              </div>
              <div className="md:text-right">
-                <h3 className="font-mono text-nothing-white text-lg md:text-xl mb-1">PHYSICS x AI</h3>
-                <p className="font-mono text-xs text-nothing-gray">RESEARCHER & EDUCATOR</p>
+                <h3 className="font-mono text-nothing-white text-lg md:text-xl mb-1">OPERATIONS x AI DATA</h3>
+                <p className="font-mono text-xs text-nothing-gray">PHYSICS-TRAINED OPERATOR</p>
              </div>
           </div>
+        </div>
+
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-nothing-gray mt-12 border border-nothing-gray">
+          {STATS.map((s) => (
+            <div key={s.label} className="bg-nothing-black p-4 md:p-5">
+              <p className="font-mono text-2xl md:text-3xl font-bold text-nothing-white">{s.value}</p>
+              <p className="font-mono text-[10px] md:text-xs text-nothing-light mt-1 uppercase tracking-wide">{s.label}</p>
+            </div>
+          ))}
         </div>
       </div>
 
