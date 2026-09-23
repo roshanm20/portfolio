@@ -1,51 +1,47 @@
 import React from 'react';
+import { MapPin } from 'lucide-react';
 import { Experience } from '../types';
 
 const ResearchCard: React.FC<{ data: Experience }> = ({ data }) => {
   return (
-    <div className="group relative border border-nothing-gray bg-nothing-dark hover:border-nothing-white transition-colors duration-300 p-6 md:p-8 h-full flex flex-col">
-      <div className="flex justify-between items-start mb-4">
-        <div>
-          <h3 className="text-xl md:text-2xl font-bold text-nothing-white group-hover:text-nothing-red transition-colors">
-            {data.role}
-          </h3>
-          <p className="text-nothing-light font-mono text-sm mt-1">{data.organization}</p>
-        </div>
-        <span className="font-mono text-xs text-nothing-gray border border-nothing-gray px-2 py-1">
-          {data.period.split('–')[0]}
-        </span>
-      </div>
-      
+    <div className="surface-card surface-card--hover flex h-full flex-col p-7 md:p-9">
+      {/* Date chip sits above the title so the title can use the full width. */}
+      <span className="chip self-start tabular-nums">{data.period.split('–')[0]}</span>
+      <h3 className="mt-5 text-[1.375rem] font-semibold leading-[1.15] tracking-[-0.025em] text-balance text-ink md:text-[1.75rem]">
+        {data.role}
+      </h3>
+      <p className="mt-2 text-[0.9375rem] font-medium text-navy">{data.organization}</p>
+
       {data.advisors && (
-        <p className="font-mono text-xs text-nothing-gray mb-4">
-          Advisors: <span className="text-nothing-light">{data.advisors}</span>
+        <p className="mt-4 text-[0.875rem] text-subtle">
+          Advisors: <span className="text-muted">{data.advisors}</span>
         </p>
       )}
 
-      <ul className="flex-grow space-y-2 mb-6">
+      <ul className="mt-7 mb-8 flex-grow space-y-3">
         {data.description.map((item, i) => (
-          <li key={i} className="flex items-start gap-3 text-sm text-nothing-light leading-relaxed">
-            <span className="mt-1.5 w-1 h-1 bg-nothing-red shrink-0" />
+          <li key={i} className="relative pl-6 text-[0.9375rem] leading-[1.6] text-muted md:text-base">
+            <span aria-hidden="true" className="absolute left-0 top-[0.8em] h-px w-3 bg-navy/60" />
             {item}
           </li>
         ))}
       </ul>
-      
+
       {data.skills && (
-        <div className="mt-auto pt-4 border-t border-nothing-gray/30">
-            <div className="flex flex-wrap gap-2">
-                {data.skills.map((skill) => (
-                    <span key={skill} className="text-[10px] font-mono uppercase border border-nothing-gray/50 px-2 py-0.5 text-nothing-gray group-hover:border-nothing-red/50 group-hover:text-nothing-light transition-colors">
-                        {skill}
-                    </span>
-                ))}
-            </div>
-        </div>
+        <ul className="mt-auto flex flex-wrap gap-2">
+          {data.skills.map((skill) => (
+            <li key={skill} className="chip">
+              {skill}
+            </li>
+          ))}
+        </ul>
       )}
 
-      <div className="pt-4 mt-4 flex justify-between items-center">
-        <span className="font-mono text-xs text-nothing-gray uppercase">{data.location}</span>
-        <div className="w-2 h-2 bg-nothing-gray group-hover:bg-nothing-red transition-colors" />
+      <div className="mt-6 flex items-center border-t border-line pt-5">
+        <span className="flex items-center gap-1.5 text-[0.8125rem] font-medium text-subtle">
+          <MapPin size={13} aria-hidden="true" />
+          {data.location}
+        </span>
       </div>
     </div>
   );

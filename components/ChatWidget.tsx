@@ -6,6 +6,28 @@ import ReactMarkdown from 'react-markdown';
 import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import remarkGfm from 'remark-gfm';
+import { AnimatePresence, MotionConfig, motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
+import { ease } from '../lib/motion';
+import { useScrollAutoHide } from '../lib/useScrollAutoHide';
+// KaTeX styles ship with this lazy chunk instead of blocking the first paint.
+import 'katex/dist/katex.min.css';
+
+const PANEL_ID = 'roshan-ai-chat';
+
+/* Panel motion: grows from the bottom-right corner (menu-panel language). */
+const chatPanel: Variants = {
+  closed: {
+    scale: 0.6,
+    opacity: 0,
+    transition: { scale: { duration: 0.3, ease: ease.inQuad }, opacity: { duration: 0.2, delay: 0.1 } },
+  },
+  open: {
+    scale: 1,
+    opacity: 1,
+    transition: { scale: { duration: 0.5, ease: ease.outCubic }, opacity: { duration: 0.2 } },
+  },
+};
 
 interface Message {
   id: string;
@@ -25,6 +47,37 @@ const ChatWidget: React.FC = () => {
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const launcherRef = useRef<HTMLButtonElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const wasOpenRef = useRef(false);
+  // Launcher steps aside while the reader scrolls down (styling only).
+  const dockHidden = useScrollAutoHide(isOpen);
+
+  // Accessibility: focus the input on open, Esc closes, focus returns to the launcher.
+  useEffect(() => {
+    if (isOpen) {
+      wasOpenRef.current = true;
+      const id = window.requestAnimationFrame(() => inputRef.current?.focus({ preventScroll: true }));
+      const onKey = (e: KeyboardEvent) => {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          setIsOpen(false);
+        }
+      };
+      document.addEventListener('keydown', onKey);
+      return () => {
+        window.cancelAnimationFrame(id);
+        document.removeEventListener('keydown', onKey);
+      };
+    }
+    if (!wasOpenRef.current) return;
+    wasOpenRef.current = false;
+    const active = document.activeElement;
+    if (!active || active === document.body || panelRef.current?.contains(active)) {
+      launcherRef.current?.focus({ preventScroll: true });
+    }
+  }, [isOpen]);
 
   // Construct the System Instruction
   const systemContext = `
@@ -111,62 +164,80 @@ const ChatWidget: React.FC = () => {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[90] font-sans">
+    <MotionConfig reducedMotion="user">
+    <div className="chat-dock fixed bottom-4 right-4 z-[100] font-sans md:bottom-6 md:right-6" data-hidden={dockHidden ? 'true' : undefined}>
       {/* Toggle Button */}
       <button
+        ref={launcherRef}
         onClick={() => setIsOpen(!isOpen)}
-        className={`w-14 h-14 rounded-full flex items-center justify-center shadow-[0_0_20px_rgba(215,25,33,0.3)] transition-all duration-300 ${
-            isOpen ? 'bg-nothing-gray rotate-90' : 'bg-nothing-red hover:scale-110'
+        aria-controls={isOpen ? PANEL_ID : undefined}
+        aria-label={isOpen ? 'Close chat' : 'Open chat'}
+        aria-expanded={isOpen}
+        className={`chat-launcher w-12 h-12 md:w-14 md:h-14 rounded-full grid place-items-center text-paper ${
+            isOpen ? 'rotate-90 bg-navy-hover' : 'bg-navy hover:scale-105'
         }`}
       >
-        {isOpen ? <X className="text-white" /> : <MessageCircle className="text-white" />}
+        {isOpen ? <X className="text-paper" size={22} strokeWidth={1.75} /> : <MessageCircle className="text-paper" size={22} strokeWidth={1.75} />}
       </button>
 
       {/* Chat Window */}
-      <div className={`absolute bottom-20 right-0 w-[90vw] md:w-[400px] bg-nothing-black border border-nothing-gray rounded-lg shadow-2xl overflow-hidden transition-all duration-300 origin-bottom-right flex flex-col ${
-          isOpen ? 'opacity-100 scale-100 h-[500px]' : 'opacity-0 scale-90 h-0 pointer-events-none'
-      }`}>
+      <AnimatePresence>
+      {isOpen && (
+      <motion.div
+        variants={chatPanel}
+        initial="closed"
+        animate="open"
+        exit="closed"
+        ref={panelRef}
+        id={PANEL_ID}
+        role="dialog"
+        aria-modal="false"
+        aria-label="Roshan AI chat"
+        style={{ transformOrigin: '100% 100%' }}
+        data-lenis-prevent
+        className="chat-panel absolute bottom-[4rem] md:bottom-[4.5rem] right-0 w-[min(400px,calc(100vw-2rem))] h-[min(540px,calc(100dvh-6.5rem))] bg-surface border border-line rounded-[1.5rem] overflow-hidden flex flex-col"
+      >
         {/* Header */}
-        <div className="bg-nothing-dark border-b border-nothing-gray p-4 flex items-center gap-3">
-            <div className="w-8 h-8 bg-nothing-red/20 rounded-full flex items-center justify-center border border-nothing-red">
-                <Bot size={18} className="text-nothing-red" />
+        <div className="chat-head on-navy px-5 py-4 flex items-center gap-3">
+            <div className="w-9 h-9 bg-paper/10 rounded-full flex items-center justify-center border border-paper/25">
+                <Bot size={18} className="text-paper" strokeWidth={1.75} />
             </div>
             <div>
-                <h3 className="text-nothing-white font-bold font-mono text-sm">ROSHAN AI</h3>
-                <p className="text-nothing-gray text-[10px] uppercase tracking-wider">Powered by Gemini 2.5</p>
+                <h3 className="text-paper font-semibold text-sm tracking-[0.04em] leading-tight">ROSHAN AI</h3>
+                <p className="text-[var(--on-navy-85)] text-[11px] font-medium uppercase tracking-[0.12em] mt-0.5">Powered by Gemini 2.5</p>
             </div>
         </div>
 
         {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-nothing-black/50 scrollbar-thin">
+        <div className="chat-scroll flex-1 overflow-y-auto overscroll-contain px-4 py-5 space-y-3 bg-surface">
             {messages.map((msg) => (
                 <div key={msg.id} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
-                    <div className={`max-w-[90%] p-3 rounded-lg text-sm leading-relaxed overflow-hidden ${
+                    <div className={`max-w-[88%] px-3.5 py-2.5 rounded-2xl text-sm leading-relaxed overflow-hidden ${
                         msg.role === 'user' 
-                        ? 'bg-nothing-white text-nothing-black font-medium' 
-                        : 'bg-nothing-dark border border-nothing-gray text-nothing-light font-mono'
+                        ? 'chat-bubble-user bg-navy text-paper rounded-br-md' 
+                        : 'chat-bubble-bot bg-chip text-ink rounded-bl-md'
                     }`}>
                         <ReactMarkdown 
                             remarkPlugins={[remarkMath, remarkGfm]}
                             rehypePlugins={[rehypeKatex]}
                             components={{
-                                // Custom styles for Markdown elements to match Nothing OS
+                                // Custom styles for Markdown elements (light theme)
                                 p: ({node, ...props}) => <p className="mb-2 last:mb-0" {...props} />,
                                 ul: ({node, ...props}) => <ul className="list-disc ml-4 mb-2 space-y-1" {...props} />,
                                 ol: ({node, ...props}) => <ol className="list-decimal ml-4 mb-2 space-y-1" {...props} />,
                                 li: ({node, ...props}) => <li className="pl-1" {...props} />,
-                                a: ({node, ...props}) => <a className="text-nothing-red hover:underline decoration-1 underline-offset-2" target="_blank" rel="noopener noreferrer" {...props} />,
+                                a: ({node, ...props}) => <a className="chat-link font-medium text-navy underline decoration-1 underline-offset-2 hover:decoration-2" target="_blank" rel="noopener noreferrer" {...props} />,
                                 code: ({node, className, ...props}: any) => {
                                     const match = /language-(\w+)/.exec(className || '')
                                     return !match ? (
-                                        <code className="bg-nothing-black border border-nothing-gray px-1.5 py-0.5 rounded text-xs font-mono text-nothing-red" {...props} />
+                                        <code className="chat-code bg-surface border border-line px-1.5 py-0.5 rounded-md text-[0.8em] text-navy" {...props} />
                                     ) : (
                                         <code className={className} {...props} />
                                     )
                                 },
-                                strong: ({node, ...props}) => <strong className="text-nothing-white font-bold" {...props} />,
-                                em: ({node, ...props}) => <em className="text-nothing-light/80" {...props} />,
-                                blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-nothing-red pl-4 py-1 my-2 text-nothing-gray italic" {...props} />,
+                                strong: ({node, ...props}) => <strong className="font-semibold" {...props} />,
+                                em: ({node, ...props}) => <em className="opacity-90" {...props} />,
+                                blockquote: ({node, ...props}) => <blockquote className="border-l-2 border-navy/30 pl-4 py-1 my-2 text-muted italic" {...props} />,
                             }}
                         >
                             {msg.text}
@@ -176,10 +247,10 @@ const ChatWidget: React.FC = () => {
             ))}
             {isLoading && (
                 <div className="flex justify-start">
-                     <div className="bg-nothing-dark border border-nothing-gray p-3 rounded-lg flex gap-1">
-                        <div className="w-1.5 h-1.5 bg-nothing-red rounded-full animate-bounce"></div>
-                        <div className="w-1.5 h-1.5 bg-nothing-red rounded-full animate-bounce [animation-delay:0.1s]"></div>
-                        <div className="w-1.5 h-1.5 bg-nothing-red rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                     <div className="bg-chip px-3.5 py-3 rounded-2xl rounded-bl-md flex gap-1">
+                        <div className="w-1.5 h-1.5 bg-navy rounded-full animate-bounce"></div>
+                        <div className="w-1.5 h-1.5 bg-navy rounded-full animate-bounce [animation-delay:0.1s]"></div>
+                        <div className="w-1.5 h-1.5 bg-navy rounded-full animate-bounce [animation-delay:0.2s]"></div>
                      </div>
                 </div>
             )}
@@ -187,25 +258,31 @@ const ChatWidget: React.FC = () => {
         </div>
 
         {/* Input */}
-        <div className="p-4 bg-nothing-dark border-t border-nothing-gray flex gap-2">
+        <div className="p-3 bg-surface border-t border-line flex gap-2">
             <input 
+                ref={inputRef}
                 type="text"
+                aria-label="Ask about his experience"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder="Ask about his experience..."
-                className="flex-1 bg-nothing-black border border-nothing-gray rounded px-3 py-2 text-sm text-nothing-white focus:outline-none focus:border-nothing-red font-mono placeholder:text-nothing-gray"
+                className="chat-input flex-1 min-w-0 bg-surface border border-line rounded-xl px-3.5 py-2.5 text-base md:text-sm text-ink transition-[border-color,box-shadow] duration-150 focus:outline-none focus:border-navy focus:ring-1 focus:ring-navy placeholder:text-subtle"
             />
             <button 
                 onClick={handleSend}
                 disabled={isLoading || !input.trim()}
-                className="bg-nothing-red text-white p-2 rounded hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                aria-label="Send message"
+                className="bg-navy text-paper w-11 shrink-0 grid place-items-center rounded-xl hover:bg-navy-hover transition-colors disabled:opacity-40 disabled:cursor-not-allowed"
             >
-                <Send size={18} />
+                <Send size={18} strokeWidth={1.75} />
             </button>
         </div>
-      </div>
+      </motion.div>
+      )}
+      </AnimatePresence>
     </div>
+    </MotionConfig>
   );
 };
 

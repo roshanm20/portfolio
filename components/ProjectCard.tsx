@@ -2,66 +2,98 @@ import React from 'react';
 import { Project } from '../types';
 import { Github, ArrowUpRight } from 'lucide-react';
 
-const ProjectCard: React.FC<{ project: Project }> = ({ project }) => {
+const STEPS = ['navy-card--1', 'navy-card--2', 'navy-card--3'];
+
+interface Props {
+  project: Project;
+  /** Position in the list, used for the numbered eyebrow and the navy step. */
+  index?: number;
+}
+
+const arrowIcon = (
+  <ArrowUpRight
+    size={15}
+    aria-hidden="true"
+    className="transition-transform duration-300 ease-out-cubic group-hover/btn:-translate-y-0.5 group-hover/btn:translate-x-0.5"
+  />
+);
+
+const ProjectCard: React.FC<Props> = ({ project, index = 0 }) => {
+  // Primary destination: the live demo when there is one, otherwise the source.
+  const primaryHref = project.demoLink || project.link;
+  const demoIsPrimary = Boolean(project.demoLink);
+
+  const sourceButton = project.link && (
+    <a
+      key="source"
+      href={project.link}
+      target="_blank"
+      rel="noreferrer"
+      className={`${demoIsPrimary ? 'btn-ghost-paper' : 'btn-paper'} group/btn flex-1 sm:flex-none`}
+    >
+      <Github size={16} aria-hidden="true" />
+      View Source
+      {arrowIcon}
+    </a>
+  );
+
+  const demoButton = project.demoLink !== undefined && (
+    <a
+      key="demo"
+      href={project.demoLink || '#'}
+      target={project.demoLink ? '_blank' : undefined}
+      rel={project.demoLink ? 'noreferrer' : undefined}
+      aria-disabled={!project.demoLink ? true : undefined}
+      className={`${demoIsPrimary ? 'btn-paper' : 'btn-ghost-paper'} group/btn flex-1 sm:flex-none ${
+        !project.demoLink ? 'cursor-not-allowed opacity-50' : ''
+      }`}
+      onClick={!project.demoLink ? (e) => e.preventDefault() : undefined}
+    >
+      Try It
+      {arrowIcon}
+    </a>
+  );
+
   return (
-    <div className="group relative border border-nothing-gray bg-nothing-dark/50 overflow-hidden flex flex-col h-full hover:border-nothing-red transition-colors duration-300">
-      {/* Dot Grid Background on Hover */}
-      <div className="absolute inset-0 bg-dot-pattern bg-dot-size opacity-0 group-hover:opacity-20 transition-opacity duration-300 pointer-events-none" />
-
-      <div className="p-6 flex flex-col h-full z-10">
-        <div className="flex justify-between items-start mb-4">
-          <h3 className="font-bold text-nothing-white text-lg font-mono group-hover:translate-x-1 transition-transform duration-300">
-            {project.title}
-          </h3>
-          <span className="font-mono text-[10px] border border-nothing-gray px-1.5 py-0.5 text-nothing-gray">
-            {project.year}
+    <div className={`navy-card ${STEPS[index % STEPS.length]} flex h-full flex-col p-7 md:p-8`}>
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <span className="eyebrow-num" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
           </span>
+          <span className="chip chip--on-navy tabular-nums">{project.year}</span>
         </div>
+        {primaryHref && (
+          <a
+            href={primaryHref}
+            target="_blank"
+            rel="noreferrer"
+            aria-label={`Open ${project.title}`}
+            className="round-arrow"
+          >
+            <ArrowUpRight size={16} strokeWidth={1.75} aria-hidden="true" />
+          </a>
+        )}
+      </div>
 
-        <p className="text-sm text-nothing-light mb-6 flex-grow leading-relaxed">
-          {project.description}
-        </p>
+      <h3 className="mt-14 text-[1.875rem] font-semibold leading-[1] tracking-[-0.035em] text-paper md:mt-20 md:text-[2.25rem]">
+        {project.title}
+      </h3>
 
-        <div className="space-y-4 mt-auto">
-          <div className="flex flex-wrap gap-2">
-            {project.tech.map(t => (
-              <span key={t} className="text-[10px] uppercase font-mono tracking-wider bg-nothing-gray/20 text-nothing-light px-2 py-1">
-                {t}
-              </span>
-            ))}
-          </div>
+      <p className="mt-4 mb-8 flex-grow text-[0.9375rem] leading-[1.55] text-paper/75">{project.description}</p>
 
-          <div className="flex gap-3">
-            {project.link && (
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noreferrer"
-                className="flex items-center justify-between flex-1 border-t border-nothing-gray pt-4 group/btn"
-              >
-                <span className="flex items-center gap-2 text-xs font-mono text-nothing-gray group-hover/btn:text-nothing-white transition-colors">
-                  <Github size={14} />
-                  VIEW SOURCE
-                </span>
-                <ArrowUpRight size={14} className="text-nothing-gray group-hover/btn:text-nothing-red transition-colors transform group-hover/btn:-translate-y-1 group-hover/btn:translate-x-1" />
-              </a>
-            )}
-            {(project.demoLink !== undefined) && (
-              <a
-                href={project.demoLink || "#"}
-                target={project.demoLink ? "_blank" : undefined}
-                rel={project.demoLink ? "noreferrer" : undefined}
-                className={`flex items-center justify-between flex-1 border-t border-nothing-gray pt-4 group/btn ${!project.demoLink ? 'opacity-50 cursor-not-allowed' : ''}`}
-                onClick={!project.demoLink ? (e) => e.preventDefault() : undefined}
-              >
-                <span className="flex items-center gap-2 text-xs font-mono text-nothing-gray group-hover/btn:text-nothing-white transition-colors">
-                  <ArrowUpRight size={14} />
-                  TRY IT
-                </span>
-                <ArrowUpRight size={14} className="text-nothing-gray group-hover/btn:text-nothing-red transition-colors transform group-hover/btn:-translate-y-1 group-hover/btn:translate-x-1" />
-              </a>
-            )}
-          </div>
+      <div className="mt-auto space-y-6">
+        <ul className="flex flex-wrap gap-2">
+          {project.tech.map((t) => (
+            <li key={t} className="chip chip--on-navy">
+              {t}
+            </li>
+          ))}
+        </ul>
+
+        <div className="flex flex-wrap gap-2.5 border-t border-paper/10 pt-6">
+          {/* Primary (filled paper) first, secondary (outline) second, on every card. */}
+          {demoIsPrimary ? [demoButton, sourceButton] : [sourceButton, demoButton]}
         </div>
       </div>
     </div>

@@ -1,15 +1,33 @@
 import React from 'react';
 import { EDUCATION_HISTORY, SKILLS } from '../constants';
 import SectionHeader from './SectionHeader';
+import { RevealGroup, RevealItem } from './Reveal';
 import { GraduationCap, ClipboardCheck, Database, Hammer, Layers, Languages } from 'lucide-react';
 
 const Chips: React.FC<{ items: string[] }> = ({ items }) => (
-  <div className="flex flex-wrap gap-2">
+  <ul className="flex flex-wrap gap-2">
     {items.map((s) => (
-      <span key={s} className="text-[11px] font-mono bg-nothing-black border border-nothing-gray px-2 py-1 text-nothing-light">
+      <li key={s} className="chip text-[0.8125rem]">
         {s}
-      </span>
+      </li>
     ))}
+  </ul>
+);
+
+/** Small icon + category label used at the top of each tile. */
+const TileHead: React.FC<{ icon: React.ReactNode; label: string; onNavy?: boolean }> = ({ icon, label, onNavy }) => (
+  <div className="flex items-center gap-3">
+    <span
+      aria-hidden="true"
+      className={`grid size-10 shrink-0 place-items-center rounded-full border ${
+        onNavy ? 'border-paper/20 text-paper/85' : 'border-line bg-page text-navy'
+      }`}
+    >
+      {icon}
+    </span>
+    <h3 className={`text-[1.0625rem] font-semibold tracking-[-0.02em] ${onNavy ? 'text-paper' : 'text-ink'}`}>
+      {label}
+    </h3>
   </div>
 );
 
@@ -18,65 +36,85 @@ const BentoGrid: React.FC = () => {
   const [ops, data, build, domains, langs] = SKILLS;
 
   return (
-    <section id="skills" className="py-20 dotted-bg relative z-10">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="skills" className="relative section-y gutter">
+      <div className="container-x">
         <SectionHeader title="Skills & Education" number="04" />
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-
-          {/* Operations - large */}
-          <div className="md:col-span-2 bg-nothing-black border border-nothing-gray p-6 md:p-8 hover:border-nothing-red transition-colors">
-            <div className="flex items-center gap-3 mb-5">
-              <ClipboardCheck className="text-nothing-red" size={20} />
-              <h3 className="font-mono text-nothing-red text-sm uppercase tracking-widest">{ops.category}</h3>
-            </div>
-            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm text-nothing-white font-mono">
-              {ops.skills.map((s) => <li key={s}>+ {s}</li>)}
+        <RevealGroup kind="card" className="grid grid-cols-1 gap-3 md:grid-cols-4 md:gap-4">
+          {/* Operations - large navy */}
+          <RevealItem
+            kind="card"
+            className="navy-card navy-card--1 navy-card--static flex flex-col p-7 md:col-span-2 md:p-10"
+          >
+            <TileHead icon={<ClipboardCheck size={18} />} label={ops.category} onNavy />
+            <ul className="mt-8 grid grid-cols-1 gap-x-8 sm:grid-cols-2 md:mt-10">
+              {ops.skills.map((s) => (
+                <li
+                  key={s}
+                  className="flex items-center gap-3 border-t border-paper/10 py-3 text-[1rem] font-medium tracking-[-0.015em] text-paper/90 md:py-4 md:text-[1.1875rem]"
+                >
+                  <span aria-hidden="true" className="text-paper/50">
+                    +
+                  </span>
+                  {s}
+                </li>
+              ))}
             </ul>
-          </div>
+          </RevealItem>
 
-          {/* Education */}
-          <div className="md:col-span-2 bg-nothing-dark border border-nothing-gray p-6 md:p-8 hover:border-nothing-white transition-colors">
-            <div className="flex items-center gap-3 mb-5">
-              <GraduationCap className="text-nothing-red" size={20} />
-              <h3 className="font-mono text-nothing-red text-sm uppercase tracking-widest">Education</h3>
+          {/* Education - large navy */}
+          <RevealItem
+            kind="card"
+            className="navy-card navy-card--3 navy-card--static flex flex-col p-7 md:col-span-2 md:p-10"
+          >
+            <TileHead icon={<GraduationCap size={18} />} label="Education" onNavy />
+            <div className="mt-8 md:mt-10">
+              <h4 className="text-[2.25rem] font-semibold leading-[0.95] tracking-[-0.035em] text-paper md:text-[clamp(2.75rem,4.4vw,4.25rem)]">
+                {uni.institution}
+              </h4>
+              <p className="mt-4 text-[1.0625rem] font-medium text-paper md:text-lg">{uni.degree}</p>
+              <p className="mt-2 max-w-[46ch] text-[0.9375rem] leading-[1.55] text-paper/75">{uni.details}</p>
+              <p className="mt-5 inline-block text-[0.8125rem] font-medium tabular-nums tracking-[0.02em] text-paper/60">
+                {uni.period}
+              </p>
             </div>
-            <h4 className="text-xl md:text-2xl text-nothing-white font-bold leading-tight">{uni.institution}</h4>
-            <p className="text-base text-nothing-light mt-1">{uni.degree}</p>
-            <p className="text-sm text-nothing-light/80 mt-2 font-mono">{uni.details}</p>
-            <p className="text-sm text-nothing-gray mt-3 font-mono">{uni.period}</p>
-          </div>
+          </RevealItem>
 
           {/* Data & tools */}
-          <div className="md:col-span-2 bg-nothing-gray/10 border border-nothing-gray p-6">
-            <Database className="text-nothing-red mb-4" size={22} />
-            <h4 className="text-nothing-white font-bold mb-3">{data.category}</h4>
-            <Chips items={data.skills} />
-          </div>
+          <RevealItem kind="card" className="surface-card flex flex-col gap-6 p-7 md:col-span-2 md:p-8">
+            <TileHead icon={<Database size={18} />} label={data.category} />
+            <div>
+              <Chips items={data.skills} />
+            </div>
+          </RevealItem>
 
           {/* Build */}
-          <div className="md:col-span-1 bg-nothing-dark border border-nothing-gray p-6">
-            <Hammer className="text-nothing-light mb-4" size={22} />
-            <h4 className="text-nothing-white font-bold mb-3">{build.category}</h4>
-            <Chips items={build.skills} />
-          </div>
+          <RevealItem kind="card" className="surface-card flex flex-col gap-6 p-7 md:col-span-1 md:p-8">
+            <TileHead icon={<Hammer size={18} />} label={build.category} />
+            <div>
+              <Chips items={build.skills} />
+            </div>
+          </RevealItem>
 
           {/* Languages */}
-          <div className="md:col-span-1 bg-nothing-black border border-nothing-gray p-6">
-            <Languages className="text-nothing-red mb-4" size={22} />
-            <h4 className="text-nothing-white font-bold mb-3">{langs.category}</h4>
-            <Chips items={langs.skills} />
-          </div>
+          <RevealItem kind="card" className="surface-card flex flex-col gap-6 p-7 md:col-span-1 md:p-8">
+            <TileHead icon={<Languages size={18} />} label={langs.category} />
+            <div>
+              <Chips items={langs.skills} />
+            </div>
+          </RevealItem>
 
           {/* Domains */}
-          <div className="md:col-span-4 bg-nothing-dark border border-nothing-gray p-6 flex flex-col md:flex-row md:items-center gap-4">
-            <div className="flex items-center gap-3 md:w-1/4">
-              <Layers className="text-nothing-red" size={22} />
-              <h4 className="text-nothing-white font-bold">{domains.category}</h4>
+          {/* Chips follow the label directly on desktop (left-aligned row). */}
+          <RevealItem
+            kind="card"
+            className="surface-card flex flex-col gap-6 p-7 md:col-span-4 md:flex-row md:items-center md:gap-x-8 md:p-8"
+          >
+            <div className="md:shrink-0">
+              <TileHead icon={<Layers size={18} />} label={domains.category} />
             </div>
-            <div className="md:w-3/4"><Chips items={domains.skills} /></div>
-          </div>
-
-        </div>
+            <Chips items={domains.skills} />
+          </RevealItem>
+        </RevealGroup>
       </div>
     </section>
   );

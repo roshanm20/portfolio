@@ -1,4 +1,5 @@
 import React from 'react';
+import { RevealGroup, RevealItem } from './Reveal';
 
 interface Props {
   title: string;
@@ -7,12 +8,14 @@ interface Props {
 
 const SectionHeader: React.FC<Props> = ({ title, number }) => {
   return (
-    <div className="flex items-baseline gap-4 mb-12 border-b border-nothing-gray pb-4">
-      <span className="text-nothing-red font-mono text-sm tracking-widest">({number})</span>
-      <h2 className="text-3xl md:text-4xl font-mono uppercase tracking-tight text-nothing-white">
+    <RevealGroup as="header" className="mb-12 md:mb-16">
+      <RevealItem as="span" className="eyebrow-num mb-4 block w-fit md:mb-5">
+        {number}
+      </RevealItem>
+      <RevealItem as="h2" className="section-title w-fit text-balance">
         {title}
-      </h2>
-    </div>
+      </RevealItem>
+    </RevealGroup>
   );
 };
 
