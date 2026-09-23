@@ -1,21 +1,22 @@
 
-# Muhammed Roshan M — Portfolio
+# Muhammed Roshan M, Portfolio
 
-This is a personal portfolio web application for Muhammed Roshan M, built with React and TypeScript. It showcases education, research, projects, skills, awards, and work experience in a modern, interactive, and visually rich format inspired by Nothing OS.
+This is a personal portfolio web application for Muhammed Roshan M, built with React and TypeScript. It presents his AI data operations and delivery work, startup, leadership, skills and physics research background, in a dark design inspired by Nothing OS.
 
 ## Features
 
-- **Intro Animation:** Astronomy-themed canvas animation on load
 - **Responsive Navigation:** Sticky navbar with smooth scrolling and mobile support
 - **Hero Section:** Prominent intro with summary and call-to-action
 - **BentoGrid:** Visual grid for education, skills, tools, and languages
 - **Sectioned Content:**
-  - Research Experience
-  - Projects (with tech stack and links)
-  - Work Experience
-  - Workshops & Conferences
-  - Leadership & Positions
-  - Achievements (animated timeline)
+  - Experience
+  - How I Work
+  - Leadership
+  - Skills & Education
+  - Things I've Built
+  - Research Background
+  - Recognition (animated timeline)
+- **CV download:** `public/Muhammed_Roshan_M_CV.pdf`
 - **Modern UI:** Tailwind CSS, dark theme, and custom iconography
 
 ## Tech Stack
@@ -57,13 +58,12 @@ npm run preview
 
 ## Folder Structure
 
-- `components/` — All React UI components
-- `constants.ts` — Portfolio data (education, projects, etc.)
-- `types.ts` — TypeScript types for data
-- `App.tsx` — Main app layout
-- `index.tsx` — Entry point
-- `vite.config.ts` — Vite configuration
-- `tailwind.config.js` — Tailwind CSS config (if present)
+- `components/`: React UI components
+- `constants.ts`: all portfolio content (edit this to update the site)
+- `types.ts`: TypeScript types for the content
+- `App.tsx`: page layout and section order
+- `index.tsx`: entry point
+- `vite.config.ts`: Vite configuration
 
 ## License
 

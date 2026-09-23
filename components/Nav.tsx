@@ -57,10 +57,11 @@ const Nav: React.FC = () => {
   };
 
   const links = [
-    { name: 'Research', href: '#research' },
     { name: 'Experience', href: '#experience' },
-    { name: 'Projects', href: '#projects' },
+    { name: 'Leadership', href: '#leadership' },
     { name: 'Skills', href: '#skills' },
+    { name: 'Projects', href: '#projects' },
+    { name: 'Research', href: '#research' },
   ];
 
   return (

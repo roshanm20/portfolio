@@ -36,7 +36,7 @@ const Achievements: React.FC = () => {
       </div>
 
       <div className="max-w-6xl mx-auto px-6 relative">
-        <SectionHeader title="Achievements" number="06" />
+        <SectionHeader title="Recognition" number="07" />
         
         <div className="flex gap-8 md:gap-16 relative">
           {/* Trajectory Line */}
