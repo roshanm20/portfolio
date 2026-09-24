@@ -3,7 +3,6 @@ import { Experience, Project, Award, SkillCategory, Position, Education, Princip
 export const PERSONAL_INFO = {
   name: "Muhammed Roshan M",
   tagline: "AI Data Operations | Evaluation & Delivery | Physics-trained",
-  location: "Bhopal, India. Ready to relocate.",
   email: "muhammedroshanmangat@gmail.com",
   linkedin: "https://www.linkedin.com/in/mroshan1",
   github: "https://github.com/roshanm20",
@@ -164,7 +163,7 @@ export const SKILLS: SkillCategory[] = [
   },
   {
     category: "Domains Worked",
-    skills: ["Physics", "Mathematics", "Biology", "Electrical Engineering", "Quant", "Astronomy"]
+    skills: ["Physics", "Mathematics", "Biology", "Quant", "Astronomy", "Operations", "Data Analysis"]
   },
   {
     category: "Languages",

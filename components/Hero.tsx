@@ -118,14 +118,14 @@ const Hero: React.FC = () => {
             <picture>
               <source
                 type="image/webp"
-                srcSet="/profile-photo-480.webp 480w, /profile-photo.webp 760w"
+                srcSet="/profile-photo-480.webp 480w, /profile-photo.webp 622w"
                 sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
               />
               <img
                 src="/profile-photo.jpg"
                 alt="Portrait of Muhammed Roshan M"
-                width={760}
-                height={1013}
+                width={622}
+                height={830}
                 fetchPriority="high"
                 decoding="async"
                 className="absolute inset-0 h-full w-full object-cover object-[50%_25%]"
@@ -144,7 +144,6 @@ const Hero: React.FC = () => {
               </span>
               <span>Open to strategic projects &amp; AI data ops roles</span>
             </p>
-            <p className="mt-1.5 pl-[1.125rem] text-[0.9rem] font-medium text-white/80">{PERSONAL_INFO.location}</p>
           </figcaption>
         </motion.figure>
 
