@@ -58,7 +58,7 @@ const Contact: React.FC = () => {
             as="p"
             className="max-w-[26ch] text-pretty text-[1.375rem] font-medium leading-[1.2] tracking-[-0.025em] text-paper sm:text-[1.75rem] md:text-[2.25rem] lg:max-w-none lg:text-[clamp(2.25rem,2.9vw,3rem)]"
           >
-            Open to Strategic Projects, AI data operations and evaluation program roles. Happy to relocate, including to New York.
+            Open to Strategic Projects, AI data operations and evaluation program roles, anywhere in the world the future of AI is being built.
           </RevealItem>
 
           <RevealItem kind="card" as="div" className="grid grid-cols-1 gap-3 sm:grid-cols-3 lg:grid-cols-1 xl:grid-cols-3">
