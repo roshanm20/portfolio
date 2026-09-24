@@ -26,10 +26,6 @@ const Footer: React.FC = () => {
           <span className="wordmark text-ink">Roshan M</span>
           <p className="text-sm text-subtle">
             © {year} Muhammed Roshan M
-            <span className="mx-2 opacity-50" aria-hidden="true">
-              ·
-            </span>
-            Built with React &amp; Tailwind.
           </p>
         </div>
         <a href="#top" onClick={toTop} className="footer-top group self-start sm:self-auto">

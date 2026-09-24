@@ -89,35 +89,35 @@ export const splashWordmark: Variants = {
 /* Menu (backdrop / panel grows from top-right / staggered items)      */
 /* ------------------------------------------------------------------ */
 export const menuBackdrop: Variants = {
-  closed: { opacity: 0, transition: { duration: 0.2, delay: 0.25 } },
-  open: { opacity: 1, transition: { duration: 0.25 } },
+  closed: { opacity: 0, transition: { duration: 0.2, ease: 'easeOut' } },
+  open: { opacity: 1, transition: { duration: 0.2, ease: 'easeOut' } },
 };
+/** Panel grows from the top-right corner. Starts near full size so it reads as instant, not as a delay. */
 export const menuPanel: Variants = {
   closed: {
-    scale: 0,
+    scale: 0.94,
     opacity: 0,
-    transition: {
-      scale: { duration: 0.45, ease: ease.inQuad },
-      opacity: { duration: 0.25, delay: 0.2 },
-    },
+    y: -8,
+    transition: { duration: 0.18, ease: ease.outCubic },
   },
   open: {
     scale: 1,
     opacity: 1,
+    y: 0,
     transition: {
-      scale: { duration: 0.45, ease: ease.outCubic },
-      opacity: { duration: 0.2 },
-      delayChildren: 0.15,
-      staggerChildren: 0.05,
+      duration: 0.32,
+      ease: ease.expoOut,
+      delayChildren: 0.04,
+      staggerChildren: 0.03,
     },
   },
 };
 export const menuItem: Variants = {
-  closed: { opacity: 0, y: '-2rem', transition: { duration: 0.25 } },
+  closed: { opacity: 0, y: -12, transition: { duration: 0.12 } },
   open: {
     opacity: 1,
     y: 0,
-    transition: { y: { duration: 0.35, ease: ease.outCubic }, opacity: { duration: 0.25 } },
+    transition: { y: { duration: 0.4, ease: ease.expoOut }, opacity: { duration: 0.22, ease: 'easeOut' } },
   },
 };
 

@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
+import type { Variants } from 'framer-motion';
 import { ArrowUpRight, Download, Github, Linkedin, Mail, X } from 'lucide-react';
 import { PERSONAL_INFO } from '../constants';
 import { useLenis } from '../lib/lenis';
@@ -33,10 +34,16 @@ const TextRoll: React.FC<{ children: string }> = ({ children }) => (
 
 const MENU_ID = 'site-menu';
 
+/** Same states, zero duration: used under prefers-reduced-motion. */
+const instant = (v: Variants): Variants =>
+  Object.fromEntries(Object.entries(v).map(([k, val]) => [k, { ...(val as object), transition: { duration: 0 } }])) as Variants;
+
 const Nav: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const [animating, setAnimating] = useState(false);
   const { scrollTo, stop, start } = useLenis();
   const reduced = useReducedMotionSafe();
+  const itemVariants = reduced ? instant(menuItem) : menuItem;
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
   const firstLinkRef = useRef<HTMLAnchorElement>(null);
@@ -50,6 +57,7 @@ const Nav: React.FC = () => {
 
   // Scroll lock + focus management
   useEffect(() => {
+    document.documentElement.classList.toggle('menu-open', open);
     if (open) {
       wasOpenRef.current = true;
       stop();
@@ -151,24 +159,19 @@ const Nav: React.FC = () => {
         </div>
       </header>
 
-      <AnimatePresence>
-        {open && (
-          <>
+      {/* Always mounted (hidden when closed) so opening only runs the animation, not a React mount. */}
+      <div inert={!open} aria-hidden={!open} style={{ visibility: open || animating ? 'visible' : 'hidden' }}>
             <motion.div
-              key="menu-backdrop"
-              className="fixed inset-0 z-[101] bg-black/30 backdrop-blur-[15px]"
-              variants={menuBackdrop}
-              initial={reduced ? false : 'closed'}
-              animate="open"
-              exit={reduced ? undefined : 'closed'}
+              className="fixed inset-0 z-[101] bg-ink/35"
+              variants={reduced ? instant(menuBackdrop) : menuBackdrop}
+              initial={false}
+              animate={open ? 'open' : 'closed'}
               onClick={() => close()}
               aria-hidden="true"
             />
             <motion.div
-              key="menu-wrap"
-              initial={reduced ? false : 'closed'}
-              animate="open"
-              exit={reduced ? undefined : 'closed'}
+              initial={false}
+              animate={open ? 'open' : 'closed'}
               className="pointer-events-none fixed right-0 top-0 z-[101] w-full p-3 md:w-[36rem] lg:w-[50vw] lg:max-w-[48rem]"
             >
               <motion.div
@@ -180,12 +183,14 @@ const Nav: React.FC = () => {
                 aria-label="Site menu"
                 data-lenis-prevent
                 className="pointer-events-auto relative max-h-[calc(100svh-1.5rem)] overflow-y-auto rounded-[20px] bg-surface p-6 pt-20 md:rounded-panel md:p-9 md:pt-24"
-                style={{ transformOrigin: '100% 0%' }}
-                variants={menuPanel}
+                style={{ transformOrigin: '100% 0%', willChange: 'transform, opacity' }}
+                variants={reduced ? instant(menuPanel) : menuPanel}
+                onAnimationStart={() => setAnimating(true)}
+                onAnimationComplete={() => setAnimating(false)}
               >
                 <motion.button
                   type="button"
-                  variants={menuItem}
+                  variants={itemVariants}
                   onClick={() => close()}
                   aria-label="Close menu"
                   className="absolute right-4 top-4 grid h-14 w-14 cursor-pointer place-items-center rounded-full bg-chip text-ink transition-transform duration-200 hover:scale-90 md:h-16 md:w-16"
@@ -196,7 +201,7 @@ const Nav: React.FC = () => {
                 <nav aria-label="Sections">
                   <ul className="flex flex-col">
                     {links.map((link, i) => (
-                      <motion.li key={link.href} variants={menuItem}>
+                      <motion.li key={link.href} variants={itemVariants}>
                         <a
                           ref={i === 0 ? firstLinkRef : undefined}
                           href={link.href}
@@ -215,7 +220,7 @@ const Nav: React.FC = () => {
                   </ul>
                 </nav>
 
-                <motion.div variants={menuItem} className="navy-card navy-card--1 navy-card--static on-navy mt-8 p-6 md:p-7">
+                <motion.div variants={itemVariants} className="navy-card navy-card--1 navy-card--static on-navy mt-8 p-6 md:p-7">
                   <p className="flex items-center gap-1.5 text-lg font-medium text-paper">
                     Contact <ArrowUpRight size={18} aria-hidden="true" />
                   </p>
@@ -242,9 +247,7 @@ const Nav: React.FC = () => {
                 </motion.div>
               </motion.div>
             </motion.div>
-          </>
-        )}
-      </AnimatePresence>
+      </div>
     </>
   );
 };
